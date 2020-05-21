@@ -1,6 +1,7 @@
 package com.onboarding.rockpaperscissors.service
 
 import com.onboarding.rockpaperscissors.model.Game
+import com.onboarding.rockpaperscissors.model.Round
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.api.extension.ExtendWith
@@ -16,8 +17,8 @@ class GameServiceTest {
         val gameService = GameService()
         val Shape1 = "SCISSOR"
         val Shape2 = "PAPER"
-        val result = gameService.play(Shape1, Shape2)
-        val expected = "Player 1 wins"
+        val result = gameService.play(Shape1, Shape2, 0)
+        val expected = Round(1, 0)
         assertEquals("Valid Shapes Player 1 Wins Test", expected, result)
     }
 
@@ -26,8 +27,8 @@ class GameServiceTest {
         val gameService = GameService()
         val Shape1 = "PAPER"
         val Shape2 = "SCISSOR"
-        val result = gameService.play(Shape1, Shape2)
-        val expected = "Player 2 wins"
+        val result = gameService.play(Shape1, Shape2, 0)
+        val expected = Round(2, 0)
         assertEquals("Valid Shapes Player 1 Wins Test", expected, result)
     }
 
@@ -36,8 +37,8 @@ class GameServiceTest {
         val gameService = GameService()
         val Shape1 = "SCISSOR"
         val Shape2 = "SCISSOR"
-        val result = gameService.play(Shape1, Shape2)
-        val expected = "Draw. Play Again"
+        val result = gameService.play(Shape1, Shape2, 0)
+        val expected = Round(0, 0)
         assertEquals("Valid Shapes Player 1 Draws with Player 2", expected, result)
     }
 
@@ -47,7 +48,7 @@ class GameServiceTest {
         val InvalidShape1 = "SCIZZOR"
         val InvalidShape2 = ""
         val exception = assertThrows<IllegalArgumentException> {
-            gameService.play(InvalidShape1, InvalidShape2)
+            gameService.play(InvalidShape1, InvalidShape2, 0)
         }
         val expectedMessage = "Something went wrong"
         val actualMessage = exception.message

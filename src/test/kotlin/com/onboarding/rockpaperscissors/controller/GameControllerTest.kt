@@ -2,6 +2,7 @@ package com.onboarding.rockpaperscissors.controller
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.onboarding.rockpaperscissors.model.Game
+import com.onboarding.rockpaperscissors.model.Round
 import com.onboarding.rockpaperscissors.service.GameService
 import org.hamcrest.Matchers
 import org.junit.jupiter.api.Test
@@ -30,7 +31,7 @@ class GameControllerTest {
     @Test
     fun givenGameController_whenPressScore_ShouldReturnResult() {
 
-        var shapeChoices = Game("PAPER", "ROCK")
+        var shapeChoices = Game("PAPER", "ROCK", 0)
         var jsonData = jacksonObjectMapper().writeValueAsString(shapeChoices)
 
         var result = mockMvc.post("/game/play"){
@@ -40,11 +41,11 @@ class GameControllerTest {
             status { isOk }
         }.andReturn();
 
-        var expectedContent = "Player 1 wins"
-        given(gameService.play("PAPER", "ROCK")).willReturn(expectedContent)
+        var expectedRound = Round(1,0)
+        given(gameService.play("PAPER", "ROCK",0)).willReturn(expectedRound)
 
         var resultingContent = result.response.contentAsString
-        assertEquals("Testing post endpoint", expectedContent, resultingContent)
+        assertEquals("Testing post endpoint", expectedRound.toString(), resultingContent)
     }
 
 }

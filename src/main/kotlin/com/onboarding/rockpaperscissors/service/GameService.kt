@@ -6,23 +6,28 @@ import com.onboarding.rockpaperscissors.model.shape.impl.Scissors
 import com.onboarding.rockpaperscissors.model.shape.Shape
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
+import com.onboarding.rockpaperscissors.model.Round
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Service
 class GameService{
+    
+    fun play(first: String, second: String, roundId:Number) : Round  {
+        var result = Round(0,0)
 
-    fun play(first: String, second: String) : String  {
-        var result = ""
         try{
             val firstShape = convertToShape(first.toUpperCase())
             val secondShape = convertToShape(second.toUpperCase())
 
+
             when (firstShape.play(secondShape)) {
-                1 -> result = "Player 1 wins"
-                -1 -> result = "Player 2 wins"
-                else -> result = "Draw. Play Again"
+                1 -> result = Round(1, roundId )
+                -1 -> result = Round(2, roundId)
+                else -> result = Round(0, roundId)
             }
         }catch(e : Exception ){
-            return "Something went wrong"
+            println("Something went wrong$e")
         }
 
         return result
