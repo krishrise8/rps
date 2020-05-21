@@ -11,7 +11,7 @@ import java.util.*
 @RequestMapping("/game")
 class GameController (){
 
-    @CrossOrigin
+    @CrossOrigin(origins = ["*"])
     @PostMapping("/play/")
     fun play(@RequestBody game: Game) : Round{
         var gameService = GameService()
