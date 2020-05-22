@@ -4,6 +4,7 @@ import com.onboarding.rockpaperscissors.model.Game
 import com.onboarding.rockpaperscissors.service.GameService
 import org.springframework.web.bind.annotation.*
 import com.onboarding.rockpaperscissors.model.Round
+import org.springframework.http.MediaType
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -11,11 +12,12 @@ import java.util.*
 @RequestMapping("/game")
 class GameController (){
 
-    @CrossOrigin(origins = ["*"])
-    @PostMapping("/play/")
+    @PostMapping("/play", produces = arrayOf("application/json"))
+    @CrossOrigin
     fun play(@RequestBody game: Game) : Round{
         var gameService = GameService()
-        return gameService.play(game.player1Choice, game.player2Choice, game.roundId);
+        var round = gameService.play(game.player1Choice, game.player2Choice, game.roundId);
+        return round;
     }
 
 }

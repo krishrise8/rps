@@ -1,4 +1,5 @@
 {
   "player1Choice": "ROCK",
-  "player2Choice": "PAPER"
+  "player2Choice": "PAPER",
+  "roundId": 1
 }
