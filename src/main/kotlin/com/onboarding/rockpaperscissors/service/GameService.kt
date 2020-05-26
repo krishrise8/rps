@@ -7,12 +7,10 @@ import com.onboarding.rockpaperscissors.model.shape.Shape
 import org.springframework.stereotype.Service
 import java.lang.IllegalArgumentException
 import com.onboarding.rockpaperscissors.model.Round
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Service
 class GameService{
-    
+
     fun play(first: String, second: String, roundId:Number) : Round  {
         var result = Round(0,0)
 
