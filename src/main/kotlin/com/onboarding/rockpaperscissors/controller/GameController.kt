@@ -16,7 +16,7 @@ class GameController (){
     @CrossOrigin
     fun play(@RequestBody game: Game) : Round{
         var gameService = GameService()
-        var round = gameService.play(game.player1Choice, game.player2Choice, game.roundId);
+        var round = gameService.play(game.player1Name, game.player1Choice, game.player2Name, game.player2Choice, game.roundId);
         return round;
     }
 

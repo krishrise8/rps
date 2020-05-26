@@ -11,18 +11,18 @@ import com.onboarding.rockpaperscissors.model.Round
 @Service
 class GameService{
 
-    fun play(first: String, second: String, roundId:Number) : Round  {
-        var result = Round(0,0)
+    fun play(firstName: String, firstChoice: String, secondName: String, secondChoice: String, roundId:Number) : Round  {
+        var result = Round(0,0, "")
 
         try{
-            val firstShape = convertToShape(first.toUpperCase())
-            val secondShape = convertToShape(second.toUpperCase())
+            val firstShape = convertToShape(firstChoice.toUpperCase())
+            val secondShape = convertToShape(secondChoice.toUpperCase())
 
 
             when (firstShape.play(secondShape)) {
-                1 -> result = Round(1, roundId )
-                -1 -> result = Round(2, roundId)
-                else -> result = Round(0, roundId)
+                1 -> result = Round(1, roundId, firstName )
+                -1 -> result = Round(2, roundId, secondName)
+                else -> result = Round(0, roundId, "")
             }
         }catch(e : Exception ){
             println("Something went wrong$e")
