@@ -1,4 +1,4 @@
-package com.onboarding.rockpaperscissors.repository
+package com.onboarding.rockpaperscissors.model
 
 import java.util.*
 import javax.persistence.Entity
