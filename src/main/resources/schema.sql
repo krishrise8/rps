@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS history;
+
+CREATE TABLE history (
+    id INT AUTO_INCREMENT,
+    playerOneName VARCHAR(250) NOT NULL,
+    playerTwoName VARCHAR(250) NOT NULL,
+    winner VARCHAR(250) NOT NULL,
+    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
