@@ -26,6 +26,7 @@ class GameService{
             }
         }catch(e : Exception ){
             println("Something went wrong$e")
+            throw java.lang.IllegalArgumentException(e)
         }
 
         return result

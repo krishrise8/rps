@@ -15,10 +15,10 @@ class GameServiceTest {
     @Test
     fun givenValidShapes_AndPressScore_Player1Wins() {
         val gameService = GameService()
-        val Shape1 = "SCISSOR"
+        val Shape1 = "SCISSORS"
         val Shape2 = "PAPER"
-        val result = gameService.play(Shape1, Shape2, 0)
-        val expected = Round(1, 0)
+        val result = gameService.play("P1", Shape1, "P2", Shape2, 0)
+        val expected = Round(1, 0, "P1")
         assertEquals("Valid Shapes Player 1 Wins Test", expected, result)
     }
 
@@ -26,10 +26,10 @@ class GameServiceTest {
     fun givenValidShapes_AndPressScore_Player2Wins() {
         val gameService = GameService()
         val Shape1 = "PAPER"
-        val Shape2 = "SCISSOR"
-        val result = gameService.play(Shape1, Shape2, 0)
-        val expected = Round(2, 0)
-        assertEquals("Valid Shapes Player 1 Wins Test", expected, result)
+        val Shape2 = "SCISSORS"
+        val result = gameService.play("P1", Shape1, "P2", Shape2, 0)
+        val expected = Round(2, 0, "P2")
+        assertEquals("Valid Shapes Player 2 Wins Test", expected, result)
     }
 
     @Test
@@ -37,8 +37,8 @@ class GameServiceTest {
         val gameService = GameService()
         val Shape1 = "SCISSOR"
         val Shape2 = "SCISSOR"
-        val result = gameService.play(Shape1, Shape2, 0)
-        val expected = Round(0, 0)
+        val result = gameService.play("P1", Shape1, "P2", Shape2, 0)
+        val expected = Round(0, 0, "")
         assertEquals("Valid Shapes Player 1 Draws with Player 2", expected, result)
     }
 
@@ -47,13 +47,9 @@ class GameServiceTest {
         val gameService = GameService()
         val InvalidShape1 = "SCIZZOR"
         val InvalidShape2 = ""
-        val exception = assertThrows<IllegalArgumentException> {
-            gameService.play(InvalidShape1, InvalidShape2, 0)
+        assertThrows<IllegalArgumentException> {
+            gameService.play("P1", InvalidShape1, "P2", InvalidShape2, 0)
         }
-        val expectedMessage = "Something went wrong"
-        val actualMessage = exception.message
-        assertEquals("Exception message is equal", expectedMessage, actualMessage)
-
     }
 
 }

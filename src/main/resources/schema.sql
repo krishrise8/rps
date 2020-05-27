@@ -1,6 +1,6 @@
-DROP TABLE IF EXISTS history;
+DROP TABLE IF EXISTS History;
 
-CREATE TABLE history (
+CREATE TABLE History (
     id INT AUTO_INCREMENT,
     playerOneName VARCHAR(250) NOT NULL,
     playerTwoName VARCHAR(250) NOT NULL,

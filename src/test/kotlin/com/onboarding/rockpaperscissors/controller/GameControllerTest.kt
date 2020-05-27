@@ -1,6 +1,7 @@
 package com.onboarding.rockpaperscissors.controller
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.google.gson.Gson
 import com.onboarding.rockpaperscissors.model.Game
 import com.onboarding.rockpaperscissors.model.Round
 import com.onboarding.rockpaperscissors.service.GameService
@@ -31,7 +32,7 @@ class GameControllerTest {
     @Test
     fun givenGameController_whenPressScore_ShouldReturnResult() {
 
-        var shapeChoices = Game("PAPER", "ROCK", 0)
+        var shapeChoices = Game("P1", "ROCK", "P2", "SCISSORS", 0)
         var jsonData = jacksonObjectMapper().writeValueAsString(shapeChoices)
 
         var result = mockMvc.post("/game/play"){
@@ -41,11 +42,15 @@ class GameControllerTest {
             status { isOk }
         }.andReturn();
 
-        var expectedRound = Round(1,0)
-        given(gameService.play("PAPER", "ROCK",0)).willReturn(expectedRound)
+        var expectedRound = Round(1,0, "P1")
+        given(gameService.play("P1", "ROCK","P2", "SCISSORS", 0)).willReturn(expectedRound)
 
         var resultingContent = result.response.contentAsString
-        assertEquals("Testing post endpoint", expectedRound.toString(), resultingContent)
+
+        val gson = Gson()
+        val expectedString : String = gson.toJson(expectedRound)
+
+        assertEquals("Testing post endpoint", expectedString, resultingContent)
     }
 
 }
