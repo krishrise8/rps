@@ -35,8 +35,8 @@ class GameServiceTest {
     @Test
     fun givenValidShapes_AndPressScore_Player1Draw() {
         val gameService = GameService()
-        val Shape1 = "SCISSOR"
-        val Shape2 = "SCISSOR"
+        val Shape1 = "SCISSORS"
+        val Shape2 = "SCISSORS"
         val result = gameService.play("P1", Shape1, "P2", Shape2, 0)
         val expected = Round(0, 0, "")
         assertEquals("Valid Shapes Player 1 Draws with Player 2", expected, result)
