@@ -11,7 +11,7 @@ class HistoryService{
     @Autowired
     private lateinit var historyRepository: HistoryRepository
 
-    fun getAllHistory(name : String) : List<History>{
-        return historyRepository.findByPlayerOneEqualsOrPlayerTwoEquals(name, name)
+    fun getAllHistory(name : String) : Iterable<History>{
+        return historyRepository.findAllByPlayerOneEqualsOrPlayerTwoEquals(name, name)
     }
 }

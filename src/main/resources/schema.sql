@@ -2,8 +2,16 @@ DROP TABLE IF EXISTS History;
 
 CREATE TABLE History (
     id INT AUTO_INCREMENT,
-    playerOne VARCHAR(250) NOT NULL,
-    playerTwo VARCHAR(250) NOT NULL,
+    PLAYER_ONE VARCHAR(250) NOT NULL,
+    PLAYER_TWO VARCHAR(250) NOT NULL,
     winner VARCHAR(250) NOT NULL,
     date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+DROP TABLE IF EXISTS Leaderboard;
+
+CREATE TABLE Leaderboard (
+             user VARCHAR(32),
+             games INT
 );

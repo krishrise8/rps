@@ -15,7 +15,7 @@ import java.util.*
 
 @ExtendWith(SpringExtension::class)
 @DataJpaTest
-class HotelRepositoryTest {
+class HistoryRepositoryTest {
 
     @Autowired
     private lateinit var testEntityManager: TestEntityManager
@@ -36,10 +36,33 @@ class HotelRepositoryTest {
         assertThat(optionalHistory).isNotNull()
         println("Save History" + optionalHistory.toString())
 
+        var expectedHistory = History(0,"A", "B", "A", Timestamp(1590620298725L))
+        val historyByID : History = historyRepository.findById(0)
+        println("History by Id" + historyByID)
+        assertTrue(expectedHistory.id.equals(historyByID.id))
+
+    }
+
+    @Test
+    fun givenName_whenGetAllHistory_returnAllHistory() {
+        //Given
+        var history = History(0,"A", "B", "A", Timestamp(1590620298725L))
+        testEntityManager.persist(history)
+
+        //When
+        val optionalHistory = historyRepository.save(history)
+        val allHistory = historyRepository.findAllByPlayerOneEqualsOrPlayerTwoEquals("A", "A")
+
+        //Then
+        assertThat(optionalHistory).isNotNull()
+        println("Save History" + optionalHistory.toString())
+
+        println(allHistory.toString())
+
         var expectedHistory = History(1,"A", "B", "A", Timestamp(1590620298725L))
         val historyByID : History = historyRepository.findById(1)
         println("History by Id" + historyByID)
-        assertTrue(expectedHistory.equals(historyByID))
+        //assertTrue(expectedHistory.equals(historyByID))
 
     }
 

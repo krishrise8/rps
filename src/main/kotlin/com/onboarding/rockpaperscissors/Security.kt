@@ -19,15 +19,14 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
         http.csrf().disable();
         http.cors();
         http.headers().frameOptions().disable();
-
-//        http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
+        http.authorizeRequests().anyRequest().authenticated().and().formLogin().and().httpBasic();
     }
 
     override fun configure(auth: AuthenticationManagerBuilder) {
-//        auth.inMemoryAuthentication()
-//                .withUser("user")
-//                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
-//                .roles("USER")
+        auth.inMemoryAuthentication()
+                .withUser("user")
+                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
+                .roles("USER")
     }
 
     @Bean

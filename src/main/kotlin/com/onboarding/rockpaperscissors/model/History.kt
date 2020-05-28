@@ -1,16 +1,14 @@
 package com.onboarding.rockpaperscissors.model
 
 import java.sql.Timestamp
-import java.time.Instant
-import java.util.*
-import javax.persistence.Entity
-import javax.persistence.GeneratedValue
-import javax.persistence.Id
+import javax.persistence.*
 
 @Entity
 data class History(
-        @Id @GeneratedValue val id: Int,
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY) val id: Int,
+        @Column(name = "PLAYER_ONE")
         val playerOne: String,
+        @Column(name = "PLAYER_TWO")
         val playerTwo: String,
         val winner: String,
         val date: Timestamp
