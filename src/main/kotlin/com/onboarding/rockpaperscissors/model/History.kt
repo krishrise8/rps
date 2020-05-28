@@ -1,5 +1,7 @@
 package com.onboarding.rockpaperscissors.model
 
+import java.sql.Timestamp
+import java.time.Instant
 import java.util.*
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
@@ -11,6 +13,6 @@ data class History(
         val playerOne: String,
         val playerTwo: String,
         val winner: String,
-        val date: Date
+        val date: Timestamp
 
 )

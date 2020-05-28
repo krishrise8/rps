@@ -7,7 +7,6 @@ import org.springframework.data.repository.CrudRepository;
 
 @Repository
 interface HistoryRepository : CrudRepository<History, Long> {
-    abstract fun findById(id : Int): History
-    abstract fun findByPlayerOneEqualsOrPlayerTwoEquals(playerName : String)
-
+    fun findById(id : Int): History
+    fun findByPlayerOneEqualsOrPlayerTwoEquals(playerOneName : String, playerTwoName : String) : List<History>
 }
