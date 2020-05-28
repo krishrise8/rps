@@ -6,10 +6,13 @@ import com.google.gson.Gson
 import com.ninjasquad.springmockk.MockkBean
 import com.onboarding.rockpaperscissors.model.Game
 import com.onboarding.rockpaperscissors.model.History
+import com.onboarding.rockpaperscissors.model.Leaderboard
 import com.onboarding.rockpaperscissors.model.Round
 import com.onboarding.rockpaperscissors.repository.HistoryRepository
+import com.onboarding.rockpaperscissors.repository.LeaderboardRepository
 import com.onboarding.rockpaperscissors.service.GameService
 import com.onboarding.rockpaperscissors.service.HistoryService
+import com.onboarding.rockpaperscissors.service.LeaderboardService
 import io.mockk.every
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -19,6 +22,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.util.AssertionErrors.assertEquals
+import org.springframework.test.util.AssertionErrors.assertTrue
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
@@ -42,8 +46,11 @@ class GameControllerTest {
     @MockkBean
     private lateinit var historyService: HistoryService
 
-    @Autowired
-    private val objectMapper: ObjectMapper? = null
+    @MockkBean
+    private lateinit var leaderboardRepository: LeaderboardRepository
+
+    @MockkBean
+    private lateinit var leaderboardService: LeaderboardService
 
     @Test
     fun givenGameController_whenPressScore_ShouldReturnResult() {
@@ -75,8 +82,6 @@ class GameControllerTest {
         var history = History(0, "A", "B", "A", Timestamp(1590620298725L))
         var jsonData = jacksonObjectMapper().writeValueAsString(history)
 
-
-
         every{historyRepository.save(history)} returns history
 
         var result = mockMvc.post("/game/saveHistory"){
@@ -102,6 +107,37 @@ class GameControllerTest {
 
         var resultingContent = result.response.contentAsString
         println(resultingContent)
+    }
+
+    @Test
+    fun givenGameController_whenSaveLeaderboard_ShouldReturnTrue() {
+
+        every{leaderboardService.incrementOrAddToLeaderboard("A")} returns true
+
+        var result = mockMvc.get("/game/saveLeaderboard/A"){
+        }.andExpect {
+            status { isOk }
+        }.andReturn();
+
+        assertTrue("Checking save leaderboard", result.response.contentAsString.toBoolean())
+
+    }
+
+    @Test
+    fun givenGameController_whenGetAllLeaderboard_ShouldReturnResult() {
+
+        var allLeaderboard : Iterable<Leaderboard> = listOf(Leaderboard("A", 1)).asIterable()
+
+        every{leaderboardRepository.findAll()} returns allLeaderboard
+
+        var result = mockMvc.get("/game/getLeaderboard")
+                .andExpect {
+                    status { isOk }
+                }.andReturn();
+
+        var resultingContent = result.response.contentAsString
+        println(resultingContent)
+
     }
 
 }
