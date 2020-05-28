@@ -24,7 +24,7 @@ class HotelRepositoryTest {
     private lateinit var historyRepository: HistoryRepository
 
     @Test
-    fun it_should_find_history_by_name() {
+    fun givenHistoryJson_whenSaveHistory_returnSavedHistory() {
         //Given
         var history = History(0,"A", "B", "A", Timestamp(1590620298725L))
         testEntityManager.persist(history)
@@ -40,9 +40,6 @@ class HotelRepositoryTest {
         val historyByID : History = historyRepository.findById(1)
         println("History by Id" + historyByID)
         assertTrue(expectedHistory.equals(historyByID))
-
-        var allHistory : List<History> = historyRepository.findByPlayerOneEqualsOrPlayerTwoEquals("A", "A")
-        println(allHistory)
 
     }
 
