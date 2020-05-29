@@ -59,7 +59,7 @@ class GameController (){
     @GetMapping("/getLeaderboard")
     @CrossOrigin
     fun getLeaderboard() : Iterable<Leaderboard>{
-        return leaderboardRepository.findAll()
+        return leaderboardRepository.findAllByGamesGreaterThan(6)
     }
 
     @GetMapping("/username")

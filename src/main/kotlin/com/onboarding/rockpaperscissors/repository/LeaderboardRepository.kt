@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository
 @Repository
 interface LeaderboardRepository : CrudRepository<Leaderboard, Long> {
     fun findByUser(user: String) : Leaderboard
+    fun findAllByGamesGreaterThan(limit : Int): Iterable<Leaderboard>
 }
