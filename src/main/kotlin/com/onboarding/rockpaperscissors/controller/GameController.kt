@@ -11,6 +11,7 @@ import com.onboarding.rockpaperscissors.repository.LeaderboardRepository
 import com.onboarding.rockpaperscissors.service.HistoryService
 import com.onboarding.rockpaperscissors.service.LeaderboardService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.userdetails.UserDetails
 import java.security.Principal
 
 @RestController
@@ -64,8 +65,8 @@ class GameController (){
 
     @GetMapping("/username")
     @ResponseBody
-    fun getCurrentUserName(principal: Principal) : String{
-        return principal.name
+    fun getCurrentUserName(principal: Principal) : Principal {
+        return principal
     }
 
 }

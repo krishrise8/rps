@@ -27,6 +27,12 @@ class SecurityConfig : WebSecurityConfigurerAdapter() {
                 .withUser("user")
                 .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
                 .roles("USER")
+
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password("{noop}pass") // Spring Security 5 requires specifying the password storage format
+                .roles("ADMIN")
+
     }
 
     @Bean
