@@ -11,6 +11,7 @@ import com.onboarding.rockpaperscissors.repository.LeaderboardRepository
 import com.onboarding.rockpaperscissors.service.HistoryService
 import com.onboarding.rockpaperscissors.service.LeaderboardService
 import org.springframework.beans.factory.annotation.Autowired
+import java.security.Principal
 
 @RestController
 @RequestMapping("/game")
@@ -59,6 +60,12 @@ class GameController (){
     @CrossOrigin
     fun getLeaderboard() : Iterable<Leaderboard>{
         return leaderboardRepository.findAll()
+    }
+
+    @GetMapping("/username")
+    @ResponseBody
+    fun getCurrentUserName(principal: Principal) : String{
+        return principal.name
     }
 
 }
